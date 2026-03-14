@@ -1,0 +1,45 @@
+"""Configuration files for different hardware targets."""
+
+# Android Configuration
+model:
+  type: mobilenet_v2
+  width_multiplier: 0.75
+  input_size: [224, 224]
+  num_classes: 5
+
+training:
+  epochs: 25
+  batch_size: 64
+  learning_rate: 0.001
+  weight_decay: 1e-4
+  num_workers: 8
+  early_stopping_patience: 10
+
+data:
+  data_dir: data/synthetic
+  create_synthetic: true
+  samples_per_class: 500
+  train_split: 0.8
+  augment: true
+
+hardware:
+  device: cuda
+  seed: 42
+  deterministic: true
+
+export:
+  formats: [onnx, coreml]
+  export_dir: exports/android
+  opset_version: 11
+
+evaluation:
+  benchmark_runs: 200
+  num_warmup: 20
+  save_plots: true
+
+device_specs:
+  cpu_cores: 8
+  memory_mb: 6144
+  storage_mb: 32768
+  power_consumption_w: 5.0
+  target_fps: 60

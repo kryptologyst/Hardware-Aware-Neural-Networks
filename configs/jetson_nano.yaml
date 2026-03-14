@@ -1,0 +1,45 @@
+"""Configuration files for different hardware targets."""
+
+# Jetson Nano Configuration
+model:
+  type: mobilenet_v2
+  width_multiplier: 0.5
+  input_size: [128, 128]
+  num_classes: 5
+
+training:
+  epochs: 20
+  batch_size: 32
+  learning_rate: 0.001
+  weight_decay: 1e-4
+  num_workers: 4
+  early_stopping_patience: 7
+
+data:
+  data_dir: data/synthetic
+  create_synthetic: true
+  samples_per_class: 200
+  train_split: 0.8
+  augment: true
+
+hardware:
+  device: cuda
+  seed: 42
+  deterministic: true
+
+export:
+  formats: [onnx, tensorrt]
+  export_dir: exports/jetson_nano
+  opset_version: 11
+
+evaluation:
+  benchmark_runs: 100
+  num_warmup: 10
+  save_plots: true
+
+device_specs:
+  cpu_cores: 4
+  memory_mb: 4096
+  storage_mb: 16384
+  power_consumption_w: 10.0
+  target_fps: 30

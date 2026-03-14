@@ -1,0 +1,45 @@
+"""Configuration files for different hardware targets."""
+
+# Raspberry Pi 4 Configuration
+model:
+  type: mobilenet_v2
+  width_multiplier: 0.25
+  input_size: [64, 64]
+  num_classes: 5
+
+training:
+  epochs: 15
+  batch_size: 16
+  learning_rate: 0.0005
+  weight_decay: 1e-4
+  num_workers: 2
+  early_stopping_patience: 5
+
+data:
+  data_dir: data/synthetic
+  create_synthetic: true
+  samples_per_class: 100
+  train_split: 0.8
+  augment: true
+
+hardware:
+  device: cpu
+  seed: 42
+  deterministic: true
+
+export:
+  formats: [onnx, tflite]
+  export_dir: exports/raspberry_pi
+  opset_version: 11
+
+evaluation:
+  benchmark_runs: 50
+  num_warmup: 5
+  save_plots: true
+
+device_specs:
+  cpu_cores: 4
+  memory_mb: 1024
+  storage_mb: 8192
+  power_consumption_w: 3.5
+  target_fps: 10

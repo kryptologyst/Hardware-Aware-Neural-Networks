@@ -1,0 +1,45 @@
+"""Configuration files for different hardware targets."""
+
+# MCU Configuration
+model:
+  type: mobilenet_v2
+  width_multiplier: 0.1
+  input_size: [32, 32]
+  num_classes: 5
+
+training:
+  epochs: 30
+  batch_size: 1
+  learning_rate: 0.0001
+  weight_decay: 1e-5
+  num_workers: 1
+  early_stopping_patience: 15
+
+data:
+  data_dir: data/synthetic
+  create_synthetic: true
+  samples_per_class: 50
+  train_split: 0.8
+  augment: false
+
+hardware:
+  device: cpu
+  seed: 42
+  deterministic: true
+
+export:
+  formats: [tflite]
+  export_dir: exports/mcu
+  opset_version: 11
+
+evaluation:
+  benchmark_runs: 20
+  num_warmup: 2
+  save_plots: true
+
+device_specs:
+  cpu_cores: 1
+  memory_mb: 256
+  storage_mb: 1024
+  power_consumption_w: 0.1
+  target_fps: 1
